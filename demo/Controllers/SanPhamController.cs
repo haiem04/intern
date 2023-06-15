@@ -21,9 +21,16 @@ namespace demo.Controllers
 
             var jsonContent = request.Content.ReadAsStringAsync().Result;
             JObject requestBodyObject = JsonConvert.DeserializeObject<JObject>(jsonContent);
-            //Pagination result = Pagination.Filter<SanPham, SanPhamDTO>(requestBodyObject["Filter"] as JObject);
-            dynamic result = ProductBusiness.FilterProduct(requestBodyObject["Filter"] as JObject);
-            return Ok(result);
+            try
+            {
+                dynamic result = ProductBusiness.FilterProduct(requestBodyObject);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(e.ToString());
+            }
 
         }
 
@@ -38,25 +45,15 @@ namespace demo.Controllers
             JObject data = requestBodyObject.data;
             try
             {
-                if (code == 0)
-                {
-                    var result = ProductBusiness.CreateProduct(data);
-                    return Ok(result);
-
-                    //result = CreateEntity.Create<SanPham, SanPhamDTO>(data);
-                }
-                else
-                {
-                    var result = ProductBusiness.UpdateProduct(data);
-                    return Ok(result);
-
-                    //result = UpdateEntity.Update<SanPham, SanPhamDTO>(data);
-                }
+                var result = ProductBusiness.UpdateProduct(data);
+                return Ok(result);
             }
             catch (Exception e)
             {
-                return Ok(e);
+
+                return BadRequest(e.ToString());
             }
+           
         }
 
 
@@ -68,7 +65,16 @@ namespace demo.Controllers
 
             dynamic requestBodyObject = JsonConvert.DeserializeObject(requestBody);
             JArray idsArray = requestBodyObject.ids;
-            return Ok(DeleteEntity.Delete<SanPham,SanPhamDTO>(idsArray));
+            try
+            {
+                return Ok(DeleteEntity.Delete<SanPham, SanPhamDTO>(idsArray));
+
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(e.ToString());
+            }
         }
 
        
