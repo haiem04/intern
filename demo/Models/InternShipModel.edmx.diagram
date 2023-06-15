@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="134f28a53ed14c688c53d2710639f786" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="internShipModel.nhom" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="internShipModel.phanLoaiNhom" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="internShipModel.SanPham" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <AssociationConnector Association="internShipModel.FK_PLnhom_nhom" ManuallyRouted="false" />
+        <AssociationConnector Association="internShipModel.FK_SPnhom_Nhom" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="internShipModel.CauHinhPMH" Width="1.5" PointX="10.25" PointY="1" />
+        <EntityTypeShape EntityType="internShipModel.DonViApDung" Width="1.5" PointX="12.5" PointY="5.875" />
+        <EntityTypeShape EntityType="internShipModel.DonViPhatHanh" Width="1.5" PointX="5.75" PointY="1.875" />
+        <EntityTypeShape EntityType="internShipModel.DotPhatHanh" Width="1.5" PointX="8" PointY="1.25" />
+        <EntityTypeShape EntityType="internShipModel.LoaiPhatHanh" Width="1.5" PointX="5.75" PointY="5.875" />
+        <EntityTypeShape EntityType="internShipModel.PMH" Width="1.5" PointX="12.5" PointY="1.625" />
+        <EntityTypeShape EntityType="internShipModel.PMH_ApDung" Width="1.5" PointX="14.75" PointY="1.625" />
+        <EntityTypeShape EntityType="internShipModel.sysdiagram" Width="1.5" PointX="0.75" PointY="7.75" />
+        <AssociationConnector Association="internShipModel.FK_CauHinhPMH_DotPhatHanh" />
+        <AssociationConnector Association="internShipModel.FK_PHM_CauHinhPMH" />
+        <AssociationConnector Association="internShipModel.FK_PMH_ApDung_DonViApDung" />
+        <AssociationConnector Association="internShipModel.FK_DotPhatHanh_DonVi" />
+        <AssociationConnector Association="internShipModel.FK_DotPhatHanh_LoaiPhatHanh" />
+        <AssociationConnector Association="internShipModel.FK_PMH_ApDung_PMH" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

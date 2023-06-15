@@ -1,0 +1,659 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="internShipModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CauHinhPMH">
+          <Key>
+            <PropertyRef Name="idCauHinhPMH" />
+          </Key>
+          <Property Name="idCauHinhPMH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idDPH" Type="int" />
+          <Property Name="maPMh" Type="varchar" MaxLength="20" />
+          <Property Name="seri" Type="varchar(max)" />
+          <Property Name="menhGia" Type="float" />
+          <Property Name="giaBan" Type="float" />
+          <Property Name="sl" Type="int" />
+          <Property Name="time" Type="date" />
+          <Property Name="sldung" Type="int" />
+          <Property Name="trangThai" Type="int" />
+        </EntityType>
+        <EntityType Name="DonViApDung">
+          <Key>
+            <PropertyRef Name="idDVAD" />
+          </Key>
+          <Property Name="idDVAD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ten" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="DonViPhatHanh">
+          <Key>
+            <PropertyRef Name="idDVPH" />
+          </Key>
+          <Property Name="idDVPH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ten" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="DotPhatHanh">
+          <Key>
+            <PropertyRef Name="idDPH" />
+          </Key>
+          <Property Name="idDPH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tenDPH" Type="nvarchar(max)" />
+          <Property Name="idLoai" Type="int" />
+          <Property Name="idDVPH" Type="int" />
+          <Property Name="dienGiai" Type="nvarchar(max)" />
+          <Property Name="trangThai" Type="int" />
+        </EntityType>
+        <EntityType Name="LoaiPhatHanh">
+          <Key>
+            <PropertyRef Name="idLoai" />
+          </Key>
+          <Property Name="idLoai" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ten" Type="nvarchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="nhom">
+          <Key>
+            <PropertyRef Name="idNhom" />
+          </Key>
+          <Property Name="idNhom" Type="int" Nullable="false" />
+          <Property Name="tenNhom" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="phanLoaiNhom">
+          <Key>
+            <PropertyRef Name="idPhanLoai" />
+          </Key>
+          <Property Name="idPhanLoai" Type="int" Nullable="false" />
+          <Property Name="idNhom" Type="int" />
+          <Property Name="tenPhanLoaiNhom" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="PMH">
+          <Key>
+            <PropertyRef Name="idPMH" />
+          </Key>
+          <Property Name="idPMH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="maSeri" Type="varchar" MaxLength="100" />
+          <Property Name="idCauHinhPMH" Type="int" />
+        </EntityType>
+        <EntityType Name="PMH_ApDung">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPMH" Type="int" />
+          <Property Name="idDVAD" Type="int" />
+        </EntityType>
+        <EntityType Name="SanPham">
+          <Key>
+            <PropertyRef Name="maSP" />
+          </Key>
+          <Property Name="maSP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="poscode" Type="varchar" MaxLength="10" />
+          <Property Name="barcode" Type="varchar" MaxLength="20" />
+          <Property Name="ten" Type="nvarchar(max)" />
+          <Property Name="nguoiBan" Type="varchar" MaxLength="20" />
+          <Property Name="idNhom" Type="int" />
+          <Property Name="xuatXu" Type="nvarchar" MaxLength="40" />
+          <Property Name="thuongHieu" Type="varchar" MaxLength="20" />
+          <Property Name="gia" Type="float" />
+          <Property Name="qlyDate" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_CauHinhPMH_DotPhatHanh">
+          <End Role="DotPhatHanh" Type="Self.DotPhatHanh" Multiplicity="0..1" />
+          <End Role="CauHinhPMH" Type="Self.CauHinhPMH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DotPhatHanh">
+              <PropertyRef Name="idDPH" />
+            </Principal>
+            <Dependent Role="CauHinhPMH">
+              <PropertyRef Name="idDPH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DotPhatHanh_DonVi">
+          <End Role="DonViPhatHanh" Type="Self.DonViPhatHanh" Multiplicity="0..1" />
+          <End Role="DotPhatHanh" Type="Self.DotPhatHanh" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonViPhatHanh">
+              <PropertyRef Name="idDVPH" />
+            </Principal>
+            <Dependent Role="DotPhatHanh">
+              <PropertyRef Name="idDVPH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DotPhatHanh_LoaiPhatHanh">
+          <End Role="LoaiPhatHanh" Type="Self.LoaiPhatHanh" Multiplicity="0..1" />
+          <End Role="DotPhatHanh" Type="Self.DotPhatHanh" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiPhatHanh">
+              <PropertyRef Name="idLoai" />
+            </Principal>
+            <Dependent Role="DotPhatHanh">
+              <PropertyRef Name="idLoai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHM_CauHinhPMH">
+          <End Role="CauHinhPMH" Type="Self.CauHinhPMH" Multiplicity="0..1" />
+          <End Role="PMH" Type="Self.PMH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CauHinhPMH">
+              <PropertyRef Name="idCauHinhPMH" />
+            </Principal>
+            <Dependent Role="PMH">
+              <PropertyRef Name="idCauHinhPMH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PLnhom_nhom">
+          <End Role="nhom" Type="Self.nhom" Multiplicity="0..1" />
+          <End Role="phanLoaiNhom" Type="Self.phanLoaiNhom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nhom">
+              <PropertyRef Name="idNhom" />
+            </Principal>
+            <Dependent Role="phanLoaiNhom">
+              <PropertyRef Name="idNhom" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PMH_ApDung_DonViApDung">
+          <End Role="DonViApDung" Type="Self.DonViApDung" Multiplicity="0..1" />
+          <End Role="PMH_ApDung" Type="Self.PMH_ApDung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonViApDung">
+              <PropertyRef Name="idDVAD" />
+            </Principal>
+            <Dependent Role="PMH_ApDung">
+              <PropertyRef Name="idDVAD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PMH_ApDung_PMH">
+          <End Role="PMH" Type="Self.PMH" Multiplicity="0..1" />
+          <End Role="PMH_ApDung" Type="Self.PMH_ApDung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PMH">
+              <PropertyRef Name="idPMH" />
+            </Principal>
+            <Dependent Role="PMH_ApDung">
+              <PropertyRef Name="idPMH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SPnhom_Nhom">
+          <End Role="nhom" Type="Self.nhom" Multiplicity="0..1" />
+          <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nhom">
+              <PropertyRef Name="idNhom" />
+            </Principal>
+            <Dependent Role="SanPham">
+              <PropertyRef Name="idNhom" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="internShipModelStoreContainer">
+          <EntitySet Name="CauHinhPMH" EntityType="Self.CauHinhPMH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DonViApDung" EntityType="Self.DonViApDung" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DonViPhatHanh" EntityType="Self.DonViPhatHanh" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DotPhatHanh" EntityType="Self.DotPhatHanh" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoaiPhatHanh" EntityType="Self.LoaiPhatHanh" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="nhom" EntityType="Self.nhom" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="phanLoaiNhom" EntityType="Self.phanLoaiNhom" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PMH" EntityType="Self.PMH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PMH_ApDung" EntityType="Self.PMH_ApDung" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SanPham" EntityType="Self.SanPham" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CauHinhPMH_DotPhatHanh" Association="Self.FK_CauHinhPMH_DotPhatHanh">
+            <End Role="DotPhatHanh" EntitySet="DotPhatHanh" />
+            <End Role="CauHinhPMH" EntitySet="CauHinhPMH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DotPhatHanh_DonVi" Association="Self.FK_DotPhatHanh_DonVi">
+            <End Role="DonViPhatHanh" EntitySet="DonViPhatHanh" />
+            <End Role="DotPhatHanh" EntitySet="DotPhatHanh" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DotPhatHanh_LoaiPhatHanh" Association="Self.FK_DotPhatHanh_LoaiPhatHanh">
+            <End Role="LoaiPhatHanh" EntitySet="LoaiPhatHanh" />
+            <End Role="DotPhatHanh" EntitySet="DotPhatHanh" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHM_CauHinhPMH" Association="Self.FK_PHM_CauHinhPMH">
+            <End Role="CauHinhPMH" EntitySet="CauHinhPMH" />
+            <End Role="PMH" EntitySet="PMH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PLnhom_nhom" Association="Self.FK_PLnhom_nhom">
+            <End Role="nhom" EntitySet="nhom" />
+            <End Role="phanLoaiNhom" EntitySet="phanLoaiNhom" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PMH_ApDung_DonViApDung" Association="Self.FK_PMH_ApDung_DonViApDung">
+            <End Role="DonViApDung" EntitySet="DonViApDung" />
+            <End Role="PMH_ApDung" EntitySet="PMH_ApDung" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PMH_ApDung_PMH" Association="Self.FK_PMH_ApDung_PMH">
+            <End Role="PMH" EntitySet="PMH" />
+            <End Role="PMH_ApDung" EntitySet="PMH_ApDung" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SPnhom_Nhom" Association="Self.FK_SPnhom_Nhom">
+            <End Role="nhom" EntitySet="nhom" />
+            <End Role="SanPham" EntitySet="SanPham" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="internShipModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="nhom">
+          <Key>
+            <PropertyRef Name="idNhom" />
+          </Key>
+          <Property Name="idNhom" Type="Int32" Nullable="false" />
+          <Property Name="tenNhom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="phanLoaiNhoms" Relationship="Self.FK_PLnhom_nhom" FromRole="nhom" ToRole="phanLoaiNhom" />
+          <NavigationProperty Name="SanPhams" Relationship="Self.FK_SPnhom_Nhom" FromRole="nhom" ToRole="SanPham" />
+        </EntityType>
+        <EntityType Name="phanLoaiNhom">
+          <Key>
+            <PropertyRef Name="idPhanLoai" />
+          </Key>
+          <Property Name="idPhanLoai" Type="Int32" Nullable="false" />
+          <Property Name="idNhom" Type="Int32" />
+          <Property Name="tenPhanLoaiNhom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="nhom" Relationship="Self.FK_PLnhom_nhom" FromRole="phanLoaiNhom" ToRole="nhom" />
+        </EntityType>
+        <EntityType Name="SanPham">
+          <Key>
+            <PropertyRef Name="maSP" />
+          </Key>
+          <Property Name="maSP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="poscode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="barcode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ten" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="nguoiBan" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="idNhom" Type="Int32" />
+          <Property Name="xuatXu" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="thuongHieu" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="gia" Type="Double" />
+          <Property Name="qlyDate" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="nhom" Relationship="Self.FK_SPnhom_Nhom" FromRole="SanPham" ToRole="nhom" />
+        </EntityType>
+        <Association Name="FK_PLnhom_nhom">
+          <End Role="nhom" Type="Self.nhom" Multiplicity="0..1" />
+          <End Role="phanLoaiNhom" Type="Self.phanLoaiNhom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nhom">
+              <PropertyRef Name="idNhom" />
+            </Principal>
+            <Dependent Role="phanLoaiNhom">
+              <PropertyRef Name="idNhom" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SPnhom_Nhom">
+          <End Role="nhom" Type="Self.nhom" Multiplicity="0..1" />
+          <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nhom">
+              <PropertyRef Name="idNhom" />
+            </Principal>
+            <Dependent Role="SanPham">
+              <PropertyRef Name="idNhom" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="internShipEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="nhoms" EntityType="Self.nhom" />
+          <EntitySet Name="phanLoaiNhoms" EntityType="Self.phanLoaiNhom" />
+          <EntitySet Name="SanPhams" EntityType="Self.SanPham" />
+          <AssociationSet Name="FK_PLnhom_nhom" Association="Self.FK_PLnhom_nhom">
+            <End Role="nhom" EntitySet="nhoms" />
+            <End Role="phanLoaiNhom" EntitySet="phanLoaiNhoms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SPnhom_Nhom" Association="Self.FK_SPnhom_Nhom">
+            <End Role="nhom" EntitySet="nhoms" />
+            <End Role="SanPham" EntitySet="SanPhams" />
+          </AssociationSet>
+          <EntitySet Name="CauHinhPMHs" EntityType="internShipModel.CauHinhPMH" />
+          <EntitySet Name="DonViApDungs" EntityType="internShipModel.DonViApDung" />
+          <EntitySet Name="DonViPhatHanhs" EntityType="internShipModel.DonViPhatHanh" />
+          <EntitySet Name="DotPhatHanhs" EntityType="internShipModel.DotPhatHanh" />
+          <EntitySet Name="LoaiPhatHanhs" EntityType="internShipModel.LoaiPhatHanh" />
+          <EntitySet Name="PMHs" EntityType="internShipModel.PMH" />
+          <EntitySet Name="PMH_ApDung" EntityType="internShipModel.PMH_ApDung" />
+          <EntitySet Name="sysdiagrams" EntityType="internShipModel.sysdiagram" />
+          <AssociationSet Name="FK_CauHinhPMH_DotPhatHanh" Association="internShipModel.FK_CauHinhPMH_DotPhatHanh">
+            <End Role="DotPhatHanh" EntitySet="DotPhatHanhs" />
+            <End Role="CauHinhPMH" EntitySet="CauHinhPMHs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHM_CauHinhPMH" Association="internShipModel.FK_PHM_CauHinhPMH">
+            <End Role="CauHinhPMH" EntitySet="CauHinhPMHs" />
+            <End Role="PMH" EntitySet="PMHs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PMH_ApDung_DonViApDung" Association="internShipModel.FK_PMH_ApDung_DonViApDung">
+            <End Role="DonViApDung" EntitySet="DonViApDungs" />
+            <End Role="PMH_ApDung" EntitySet="PMH_ApDung" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DotPhatHanh_DonVi" Association="internShipModel.FK_DotPhatHanh_DonVi">
+            <End Role="DonViPhatHanh" EntitySet="DonViPhatHanhs" />
+            <End Role="DotPhatHanh" EntitySet="DotPhatHanhs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DotPhatHanh_LoaiPhatHanh" Association="internShipModel.FK_DotPhatHanh_LoaiPhatHanh">
+            <End Role="LoaiPhatHanh" EntitySet="LoaiPhatHanhs" />
+            <End Role="DotPhatHanh" EntitySet="DotPhatHanhs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PMH_ApDung_PMH" Association="internShipModel.FK_PMH_ApDung_PMH">
+            <End Role="PMH" EntitySet="PMHs" />
+            <End Role="PMH_ApDung" EntitySet="PMH_ApDung" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CauHinhPMH">
+          <Key>
+            <PropertyRef Name="idCauHinhPMH" />
+          </Key>
+          <Property Name="idCauHinhPMH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idDPH" Type="Int32" />
+          <Property Name="maPMh" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="seri" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="menhGia" Type="Double" />
+          <Property Name="giaBan" Type="Double" />
+          <Property Name="sl" Type="Int32" />
+          <Property Name="time" Type="DateTime" Precision="0" />
+          <Property Name="sldung" Type="Int32" />
+          <Property Name="trangThai" Type="Int32" />
+          <NavigationProperty Name="DotPhatHanh" Relationship="internShipModel.FK_CauHinhPMH_DotPhatHanh" FromRole="CauHinhPMH" ToRole="DotPhatHanh" />
+          <NavigationProperty Name="PMHs" Relationship="internShipModel.FK_PHM_CauHinhPMH" FromRole="CauHinhPMH" ToRole="PMH" />
+        </EntityType>
+        <EntityType Name="DonViApDung">
+          <Key>
+            <PropertyRef Name="idDVAD" />
+          </Key>
+          <Property Name="idDVAD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ten" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PMH_ApDung" Relationship="internShipModel.FK_PMH_ApDung_DonViApDung" FromRole="DonViApDung" ToRole="PMH_ApDung" />
+        </EntityType>
+        <EntityType Name="DonViPhatHanh">
+          <Key>
+            <PropertyRef Name="idDVPH" />
+          </Key>
+          <Property Name="idDVPH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ten" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DotPhatHanhs" Relationship="internShipModel.FK_DotPhatHanh_DonVi" FromRole="DonViPhatHanh" ToRole="DotPhatHanh" />
+        </EntityType>
+        <EntityType Name="DotPhatHanh">
+          <Key>
+            <PropertyRef Name="idDPH" />
+          </Key>
+          <Property Name="idDPH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tenDPH" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="idLoai" Type="Int32" />
+          <Property Name="idDVPH" Type="Int32" />
+          <Property Name="dienGiai" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="trangThai" Type="Int32" />
+          <NavigationProperty Name="CauHinhPMHs" Relationship="internShipModel.FK_CauHinhPMH_DotPhatHanh" FromRole="DotPhatHanh" ToRole="CauHinhPMH" />
+          <NavigationProperty Name="DonViPhatHanh" Relationship="internShipModel.FK_DotPhatHanh_DonVi" FromRole="DotPhatHanh" ToRole="DonViPhatHanh" />
+          <NavigationProperty Name="LoaiPhatHanh" Relationship="internShipModel.FK_DotPhatHanh_LoaiPhatHanh" FromRole="DotPhatHanh" ToRole="LoaiPhatHanh" />
+        </EntityType>
+        <EntityType Name="LoaiPhatHanh">
+          <Key>
+            <PropertyRef Name="idLoai" />
+          </Key>
+          <Property Name="idLoai" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ten" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DotPhatHanhs" Relationship="internShipModel.FK_DotPhatHanh_LoaiPhatHanh" FromRole="LoaiPhatHanh" ToRole="DotPhatHanh" />
+        </EntityType>
+        <EntityType Name="PMH">
+          <Key>
+            <PropertyRef Name="idPMH" />
+          </Key>
+          <Property Name="idPMH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="maSeri" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="idCauHinhPMH" Type="Int32" />
+          <NavigationProperty Name="CauHinhPMH" Relationship="internShipModel.FK_PHM_CauHinhPMH" FromRole="PMH" ToRole="CauHinhPMH" />
+          <NavigationProperty Name="PMH_ApDung" Relationship="internShipModel.FK_PMH_ApDung_PMH" FromRole="PMH" ToRole="PMH_ApDung" />
+        </EntityType>
+        <EntityType Name="PMH_ApDung">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPMH" Type="Int32" />
+          <Property Name="idDVAD" Type="Int32" />
+          <NavigationProperty Name="DonViApDung" Relationship="internShipModel.FK_PMH_ApDung_DonViApDung" FromRole="PMH_ApDung" ToRole="DonViApDung" />
+          <NavigationProperty Name="PMH" Relationship="internShipModel.FK_PMH_ApDung_PMH" FromRole="PMH_ApDung" ToRole="PMH" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_CauHinhPMH_DotPhatHanh">
+          <End Type="internShipModel.DotPhatHanh" Role="DotPhatHanh" Multiplicity="0..1" />
+          <End Type="internShipModel.CauHinhPMH" Role="CauHinhPMH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DotPhatHanh">
+              <PropertyRef Name="idDPH" />
+            </Principal>
+            <Dependent Role="CauHinhPMH">
+              <PropertyRef Name="idDPH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHM_CauHinhPMH">
+          <End Type="internShipModel.CauHinhPMH" Role="CauHinhPMH" Multiplicity="0..1" />
+          <End Type="internShipModel.PMH" Role="PMH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CauHinhPMH">
+              <PropertyRef Name="idCauHinhPMH" />
+            </Principal>
+            <Dependent Role="PMH">
+              <PropertyRef Name="idCauHinhPMH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PMH_ApDung_DonViApDung">
+          <End Type="internShipModel.DonViApDung" Role="DonViApDung" Multiplicity="0..1" />
+          <End Type="internShipModel.PMH_ApDung" Role="PMH_ApDung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonViApDung">
+              <PropertyRef Name="idDVAD" />
+            </Principal>
+            <Dependent Role="PMH_ApDung">
+              <PropertyRef Name="idDVAD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DotPhatHanh_DonVi">
+          <End Type="internShipModel.DonViPhatHanh" Role="DonViPhatHanh" Multiplicity="0..1" />
+          <End Type="internShipModel.DotPhatHanh" Role="DotPhatHanh" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonViPhatHanh">
+              <PropertyRef Name="idDVPH" />
+            </Principal>
+            <Dependent Role="DotPhatHanh">
+              <PropertyRef Name="idDVPH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DotPhatHanh_LoaiPhatHanh">
+          <End Type="internShipModel.LoaiPhatHanh" Role="LoaiPhatHanh" Multiplicity="0..1" />
+          <End Type="internShipModel.DotPhatHanh" Role="DotPhatHanh" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiPhatHanh">
+              <PropertyRef Name="idLoai" />
+            </Principal>
+            <Dependent Role="DotPhatHanh">
+              <PropertyRef Name="idLoai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PMH_ApDung_PMH">
+          <End Type="internShipModel.PMH" Role="PMH" Multiplicity="0..1" />
+          <End Type="internShipModel.PMH_ApDung" Role="PMH_ApDung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PMH">
+              <PropertyRef Name="idPMH" />
+            </Principal>
+            <Dependent Role="PMH_ApDung">
+              <PropertyRef Name="idPMH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="internShipModelStoreContainer" CdmEntityContainer="internShipEntities">
+          <EntitySetMapping Name="nhoms">
+            <EntityTypeMapping TypeName="internShipModel.nhom">
+              <MappingFragment StoreEntitySet="nhom">
+                <ScalarProperty Name="idNhom" ColumnName="idNhom" />
+                <ScalarProperty Name="tenNhom" ColumnName="tenNhom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="phanLoaiNhoms">
+            <EntityTypeMapping TypeName="internShipModel.phanLoaiNhom">
+              <MappingFragment StoreEntitySet="phanLoaiNhom">
+                <ScalarProperty Name="idPhanLoai" ColumnName="idPhanLoai" />
+                <ScalarProperty Name="idNhom" ColumnName="idNhom" />
+                <ScalarProperty Name="tenPhanLoaiNhom" ColumnName="tenPhanLoaiNhom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SanPhams">
+            <EntityTypeMapping TypeName="internShipModel.SanPham">
+              <MappingFragment StoreEntitySet="SanPham">
+                <ScalarProperty Name="maSP" ColumnName="maSP" />
+                <ScalarProperty Name="poscode" ColumnName="poscode" />
+                <ScalarProperty Name="barcode" ColumnName="barcode" />
+                <ScalarProperty Name="ten" ColumnName="ten" />
+                <ScalarProperty Name="nguoiBan" ColumnName="nguoiBan" />
+                <ScalarProperty Name="idNhom" ColumnName="idNhom" />
+                <ScalarProperty Name="xuatXu" ColumnName="xuatXu" />
+                <ScalarProperty Name="thuongHieu" ColumnName="thuongHieu" />
+                <ScalarProperty Name="gia" ColumnName="gia" />
+                <ScalarProperty Name="qlyDate" ColumnName="qlyDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CauHinhPMHs">
+            <EntityTypeMapping TypeName="internShipModel.CauHinhPMH">
+              <MappingFragment StoreEntitySet="CauHinhPMH">
+                <ScalarProperty Name="trangThai" ColumnName="trangThai" />
+                <ScalarProperty Name="sldung" ColumnName="sldung" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="sl" ColumnName="sl" />
+                <ScalarProperty Name="giaBan" ColumnName="giaBan" />
+                <ScalarProperty Name="menhGia" ColumnName="menhGia" />
+                <ScalarProperty Name="seri" ColumnName="seri" />
+                <ScalarProperty Name="maPMh" ColumnName="maPMh" />
+                <ScalarProperty Name="idDPH" ColumnName="idDPH" />
+                <ScalarProperty Name="idCauHinhPMH" ColumnName="idCauHinhPMH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DonViApDungs">
+            <EntityTypeMapping TypeName="internShipModel.DonViApDung">
+              <MappingFragment StoreEntitySet="DonViApDung">
+                <ScalarProperty Name="ten" ColumnName="ten" />
+                <ScalarProperty Name="idDVAD" ColumnName="idDVAD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DonViPhatHanhs">
+            <EntityTypeMapping TypeName="internShipModel.DonViPhatHanh">
+              <MappingFragment StoreEntitySet="DonViPhatHanh">
+                <ScalarProperty Name="ten" ColumnName="ten" />
+                <ScalarProperty Name="idDVPH" ColumnName="idDVPH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DotPhatHanhs">
+            <EntityTypeMapping TypeName="internShipModel.DotPhatHanh">
+              <MappingFragment StoreEntitySet="DotPhatHanh">
+                <ScalarProperty Name="trangThai" ColumnName="trangThai" />
+                <ScalarProperty Name="dienGiai" ColumnName="dienGiai" />
+                <ScalarProperty Name="idDVPH" ColumnName="idDVPH" />
+                <ScalarProperty Name="idLoai" ColumnName="idLoai" />
+                <ScalarProperty Name="tenDPH" ColumnName="tenDPH" />
+                <ScalarProperty Name="idDPH" ColumnName="idDPH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoaiPhatHanhs">
+            <EntityTypeMapping TypeName="internShipModel.LoaiPhatHanh">
+              <MappingFragment StoreEntitySet="LoaiPhatHanh">
+                <ScalarProperty Name="ten" ColumnName="ten" />
+                <ScalarProperty Name="idLoai" ColumnName="idLoai" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PMHs">
+            <EntityTypeMapping TypeName="internShipModel.PMH">
+              <MappingFragment StoreEntitySet="PMH">
+                <ScalarProperty Name="idCauHinhPMH" ColumnName="idCauHinhPMH" />
+                <ScalarProperty Name="maSeri" ColumnName="maSeri" />
+                <ScalarProperty Name="idPMH" ColumnName="idPMH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PMH_ApDung">
+            <EntityTypeMapping TypeName="internShipModel.PMH_ApDung">
+              <MappingFragment StoreEntitySet="PMH_ApDung">
+                <ScalarProperty Name="idDVAD" ColumnName="idDVAD" />
+                <ScalarProperty Name="idPMH" ColumnName="idPMH" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="internShipModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
