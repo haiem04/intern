@@ -10,6 +10,9 @@ using demo.CRUD;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using demo.Business;
+using System.Text;
+using System.Web;
+using System.IO;
 
 namespace demo.Controllers
 {
@@ -45,8 +48,17 @@ namespace demo.Controllers
             JObject data = requestBodyObject.data;
             try
             {
-                var result = ProductBusiness.UpdateProduct(data);
-                return Ok(result);
+              
+                if(code ==0)
+                {
+                    var result = ProductBusiness.CreateProduct(data);
+                    return Ok(result);
+                }
+                else
+                {
+                    var result = ProductBusiness.UpdateProduct(data);
+                    return Ok(result);
+                }
             }
             catch (Exception e)
             {
@@ -78,6 +90,15 @@ namespace demo.Controllers
         }
 
        
-
+        [HttpGet]
+        public IHttpActionResult ExportExcel()
+        {
+            StringBuilder strB=ProductBusiness.ExportExcel();
+            HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
+            HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment; filename=export.xls");
+            HttpContext.Current.Response.Write(strB.ToString());
+            HttpContext.Current.Response.End();
+            return Ok(0);
+        }
     }
 }

@@ -147,7 +147,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Business\CauHinhPMHBusiness.cs" />
+    <Compile Include="Business\DotPhatHanhBusiness.cs" />
     <Compile Include="Business\ProductBusiness.cs" />
+    <Compile Include="Controllers\CauHinhPMHController.cs" />
+    <Compile Include="Controllers\DotPhatHanhController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PMHController.cs" />
     <Compile Include="Controllers\SanPhamController.cs" />
@@ -155,18 +159,20 @@
     <Compile Include="CRUD\CRUDExtensions.cs" />
     <Compile Include="CRUD\DeleteEntity.cs" />
     <Compile Include="CRUD\UpdateEntity.cs" />
-    <Compile Include="DTO\CauHinhPMHDTO.cs" />
-    <Compile Include="DTO\DonViApDungDTO.cs" />
-    <Compile Include="DTO\DonViPhatHanhDTO.cs" />
-    <Compile Include="DTO\DotPhatHanhDTO.cs" />
-    <Compile Include="DTO\LoaiPhatHanhDTO.cs" />
-    <Compile Include="DTO\NhomDTO.cs" />
+    <Compile Include="DTO\PMH\CauHinhPMHDTO.cs" />
+    <Compile Include="DTO\PMH\DonViApDungDTO.cs" />
+    <Compile Include="DTO\PMH\DonViPhatHanhDTO.cs" />
+    <Compile Include="DTO\PMH\Extensions\CauHinhPMHExtension.cs" />
+    <Compile Include="DTO\PMH\Extensions\DotPhatHanhExtension.cs" />
+    <Compile Include="DTO\PMH\DotPhatHanhDTO.cs" />
+    <Compile Include="DTO\PMH\LoaiPhatHanhDTO.cs" />
+    <Compile Include="DTO\SanPham\NhomDTO.cs" />
     <Compile Include="CRUD\Pagination.cs" />
-    <Compile Include="DTO\PhanLoaiNhomDTO.cs" />
-    <Compile Include="DTO\PMHDTO.cs" />
-    <Compile Include="DTO\PMH_ApDungDTO.cs" />
-    <Compile Include="DTO\SanPhamDTO.cs" />
-    <Compile Include="DTO\SanPhamDTOExtension.cs" />
+    <Compile Include="DTO\SanPham\PhanLoaiNhomDTO.cs" />
+    <Compile Include="DTO\PMH\PMHDTO.cs" />
+    <Compile Include="DTO\PMH\PMH_ApDungDTO.cs" />
+    <Compile Include="DTO\SanPham\SanPhamDTO.cs" />
+    <Compile Include="DTO\SanPham\Extensions\SanPhamDTOExtension.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

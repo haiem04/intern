@@ -6,9 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Reflection;
+using System.Text;
 
 namespace demo.Business
 {
@@ -217,6 +219,35 @@ namespace demo.Business
             }
             db.SaveChanges();
             return listDTOs;
+        }
+
+        public static StringBuilder ExportExcel()
+        {
+            List<SanPhamDTO> sps = db.SanPhams.ToList().Select(x => x.ToDTO()).ToList();   
+            StringBuilder str = new StringBuilder();
+            Type type = typeof(SanPhamDTO);
+            PropertyInfo[] props = type.GetProperties();
+            str.Append("<table border=`" + "1px" + "`b>");
+            str.Append("<tr>");
+            foreach (var item in props)
+            {
+                str.Append($"<td><b><font face=Arial Narrow size=3>{item.Name}</font></b></td>");
+            }
+            str.Append("</tr>");
+
+            foreach (SanPhamDTO val in sps)
+            {
+                str.Append("<tr>");
+                foreach (var item in val.GetType().GetProperties())
+                {
+                str.Append("<td><font face=Arial Narrow size=" + "14px" + ">" + item.GetValue(val).ToString() + "</font></td>");
+                }
+                str.Append("</tr>");
+            }
+            str.Append("</table>");
+           
+
+            return str;
         }
     }
 }
